@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile()
             ->brandName('Aissatou Marone — Admin')
             ->colors([
                 'primary' => Color::Amber,
