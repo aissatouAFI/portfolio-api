@@ -65,7 +65,8 @@ class CvPdfResource extends Resource
             ->actions([
                 ViewAction::make()
                     ->label('Infos')
-                    ->icon('heroicon-o-information-circle'),
+                    ->icon('heroicon-m-eye')
+                    ->color('success'),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

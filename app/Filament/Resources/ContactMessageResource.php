@@ -60,7 +60,8 @@ class ContactMessageResource extends Resource
             ->actions([
                 ViewAction::make()
                     ->label('Infos')
-                    ->icon('heroicon-o-information-circle'),
+                    ->icon('heroicon-m-eye')
+                    ->color('success'),
                 Action::make('marquerLu')
                     ->label('Marquer comme lu')
                     ->icon('heroicon-o-check')

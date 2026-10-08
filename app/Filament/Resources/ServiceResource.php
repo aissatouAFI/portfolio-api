@@ -64,7 +64,8 @@ class ServiceResource extends Resource
             ->actions([
                 \Filament\Tables\Actions\ViewAction::make()
                     ->label('Infos')
-                    ->icon('heroicon-o-information-circle'),
+                    ->icon('heroicon-m-eye')
+                    ->color('success'),
                 \Filament\Tables\Actions\EditAction::make(),
                 \Filament\Tables\Actions\DeleteAction::make(),
             ])

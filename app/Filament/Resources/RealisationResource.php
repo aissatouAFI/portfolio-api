@@ -158,7 +158,8 @@ class RealisationResource extends Resource
             ->actions([
                 ViewAction::make()
                     ->label('Infos')
-                    ->icon('heroicon-o-information-circle')
+                    ->icon('heroicon-m-eye')
+                    ->color('success')
                     ->modalHeading(fn ($record) => $record->titre),
                 EditAction::make(),
                 DeleteAction::make(),
