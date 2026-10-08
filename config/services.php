@@ -18,6 +18,11 @@ return [
         'key' => env('POSTMARK_API_KEY'),
     ],
 
+    // Compte GitHub affiché sur le portfolio
+    'github' => [
+        'username' => env('GITHUB_USERNAME', 'aissatouAFI'),
+    ],
+
     'resend' => [
         'key' => env('RESEND_API_KEY'),
     ],

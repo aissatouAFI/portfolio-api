@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\CvController;
+use App\Http\Controllers\Api\GithubController;
 use App\Http\Controllers\Api\ProfilController;
 use App\Http\Controllers\Api\RealisationController;
 use App\Http\Controllers\Api\ServiceController;
@@ -24,6 +25,7 @@ Route::get('/services', [ServiceController::class, 'index']);
 Route::get('/realisations', [RealisationController::class, 'index']);
 Route::get('/realisations/{slug}', [RealisationController::class, 'showPublic']);
 Route::get('/cv', [CvController::class, 'index']);
+Route::get('/github', [GithubController::class, 'index']);
 // Limité à 5 envois par minute et par adresse IP (anti-spam).
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1');
 // Compteur de visites (une par session de navigation), limité pour éviter le gonflage artificiel.
