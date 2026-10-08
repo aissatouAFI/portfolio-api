@@ -11,11 +11,17 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -82,6 +88,62 @@ class RealisationResource extends Resource
         ]);
     }
 
+    // Détails affichés en lecture seule par le bouton « Infos » de la liste
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Section::make()
+                ->columns(2)
+                ->schema([
+                    TextEntry::make('titre')->label('Titre'),
+                    TextEntry::make('date_realisation')
+                        ->label('Date de réalisation')
+                        ->date('d/m/Y')
+                        ->placeholder('Non renseignée'),
+
+                    TextEntry::make('description')
+                        ->label('Description')
+                        ->columnSpanFull(),
+
+                    ImageEntry::make('image')
+                        ->label('Image')
+                        ->disk('public')
+                        ->height(180)
+                        ->columnSpanFull()
+                        ->visible(fn ($record) => filled($record->image)),
+
+                    TextEntry::make('lien_demo')
+                        ->label('Lien de la démo')
+                        ->url(fn ($state) => $state, shouldOpenInNewTab: true)
+                        ->color('primary')
+                        ->placeholder('Aucun'),
+                    TextEntry::make('lien_github')
+                        ->label('Code source (GitHub)')
+                        ->url(fn ($state) => $state, shouldOpenInNewTab: true)
+                        ->color('primary')
+                        ->placeholder('Aucun'),
+
+                    TextEntry::make('technologies')
+                        ->label('Technologies')
+                        ->badge()
+                        ->placeholder('Aucune')
+                        ->columnSpanFull(),
+
+                    IconEntry::make('en_avant')
+                        ->label('Mise en avant sur l\'accueil')
+                        ->boolean(),
+                    TextEntry::make('ordre')->label('Ordre d\'affichage'),
+
+                    TextEntry::make('created_at')
+                        ->label('Ajoutée le')
+                        ->dateTime('d/m/Y à H:i'),
+                    TextEntry::make('updated_at')
+                        ->label('Dernière modification')
+                        ->dateTime('d/m/Y à H:i'),
+                ]),
+        ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -94,6 +156,10 @@ class RealisationResource extends Resource
             ])
             ->defaultSort('ordre')
             ->actions([
+                ViewAction::make()
+                    ->label('Infos')
+                    ->icon('heroicon-o-information-circle')
+                    ->modalHeading(fn ($record) => $record->titre),
                 EditAction::make(),
                 DeleteAction::make(),
             ])
