@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CvController;
 use App\Http\Controllers\Api\ProfilController;
 use App\Http\Controllers\Api\RealisationController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\VisiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,5 @@ Route::get('/realisations/{slug}', [RealisationController::class, 'showPublic'])
 Route::get('/cv', [CvController::class, 'index']);
 // Limité à 5 envois par minute et par adresse IP (anti-spam).
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1');
+// Compteur de visites (une par session de navigation), limité pour éviter le gonflage artificiel.
+Route::post('/visites', [VisiteController::class, 'store'])->middleware('throttle:10,1');
