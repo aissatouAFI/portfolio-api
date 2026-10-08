@@ -62,6 +62,9 @@ class ServiceResource extends Resource
             ->defaultSort('ordre')
             ->filters([])
             ->actions([
+                \Filament\Tables\Actions\ViewAction::make()
+                    ->label('Infos')
+                    ->icon('heroicon-o-information-circle'),
                 \Filament\Tables\Actions\EditAction::make(),
                 \Filament\Tables\Actions\DeleteAction::make(),
             ])

@@ -58,7 +58,9 @@ class ContactMessageResource extends Resource
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->label('Infos')
+                    ->icon('heroicon-o-information-circle'),
                 Action::make('marquerLu')
                     ->label('Marquer comme lu')
                     ->icon('heroicon-o-check')
