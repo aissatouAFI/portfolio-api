@@ -9,7 +9,7 @@ class MessagesChart extends ChartWidget
 {
     protected static ?string $heading = 'Messages reçus (12 derniers mois)';
 
-    protected static ?int $sort = 4;
+    protected static ?int $sort = 5;
 
     protected static string $color = 'warning';
 
@@ -27,6 +27,8 @@ class MessagesChart extends ChartWidget
                 [
                     'label' => 'Messages',
                     'data' => $mois->map(fn ($m) => $parMois[$m->format('Y-m')] ?? 0)->all(),
+                    'fill' => true,
+                    'tension' => 0.3,
                 ],
             ],
             'labels' => $mois->map(fn ($m) => $m->locale('fr')->translatedFormat('M y'))->all(),
@@ -35,7 +37,7 @@ class MessagesChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'line';
     }
 
     protected function getOptions(): array

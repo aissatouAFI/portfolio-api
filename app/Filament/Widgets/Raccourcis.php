@@ -12,7 +12,7 @@ class Raccourcis extends Widget
 {
     protected static string $view = 'filament.widgets.raccourcis';
 
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 6;
 
     protected int|string|array $columnSpan = 'full';
 

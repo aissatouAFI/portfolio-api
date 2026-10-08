@@ -9,7 +9,7 @@ class VisitesChart extends ChartWidget
 {
     protected static ?string $heading = 'Visites du site (30 derniers jours)';
 
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
 
     protected static string $color = 'success';
 
