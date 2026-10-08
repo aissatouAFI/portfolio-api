@@ -13,6 +13,9 @@ class TechnologiesChart extends ChartWidget
 
     protected static ?int $sort = 3;
 
+    // Même hauteur que le graphique des compétences, affiché à côté
+    protected static ?string $maxHeight = '230px';
+
     private const COULEURS = ['#ec4899', '#3b82f6', '#f59e0b', '#10b981', '#8b5cf6', '#f97316', '#14b8a6', '#ef4444'];
 
     protected function getData(): array

@@ -27,6 +27,9 @@ class VisitesChart extends ChartWidget
                     'data' => $jours->map(fn ($jour) => (int) ($parJour[$jour->toDateString()] ?? 0))->all(),
                     'fill' => true,
                     'tension' => 0.3,
+                    'borderColor' => '#22c55e',
+                    'backgroundColor' => 'rgba(34, 197, 94, 0.15)',
+                    'pointBackgroundColor' => '#22c55e',
                 ],
             ],
             'labels' => $jours->map(fn ($jour) => $jour->format('d/m'))->all(),
@@ -36,5 +39,11 @@ class VisitesChart extends ChartWidget
     protected function getType(): string
     {
         return 'line';
+    }
+
+    protected function getOptions(): array
+    {
+        // Des nombres entiers sur l'axe vertical (pas de « 0,5 visite »)
+        return ['scales' => ['y' => ['ticks' => ['precision' => 0]]]];
     }
 }

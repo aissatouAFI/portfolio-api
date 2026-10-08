@@ -33,7 +33,7 @@ class StatsOverview extends BaseWidget
 
         return [
             Stat::make('Visites aujourd\'hui', $visites->last())
-                ->description($visites->sum() . ' visites sur 30 jours')
+                ->description($visites->sum() . ($visites->sum() > 1 ? ' visites' : ' visite') . ' sur 30 jours')
                 ->descriptionIcon('heroicon-m-eye')
                 ->chart($visites->all())
                 ->color('success'),
