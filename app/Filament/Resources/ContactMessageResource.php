@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\ActionGroup;
 use App\Filament\Resources\ContactMessageResource\Pages;
 use App\Models\ContactMessage;
 use Filament\Forms\Components\Textarea;
@@ -58,16 +59,20 @@ class ContactMessageResource extends Resource
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([
-                ViewAction::make()
-                    ->label('Infos')
-                    ->icon('heroicon-m-eye')
-                    ->color('success'),
-                Action::make('marquerLu')
-                    ->label('Marquer comme lu')
-                    ->icon('heroicon-o-check')
-                    ->visible(fn (ContactMessage $record) => ! $record->lu)
-                    ->action(fn (ContactMessage $record) => $record->update(['lu' => true])),
-                DeleteAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Infos')
+                        ->icon('heroicon-m-eye')
+                        ->color('success'),
+                    Action::make('marquerLu')
+                        ->label('Marquer comme lu')
+                        ->icon('heroicon-o-check')
+                        ->visible(fn (ContactMessage $record) => ! $record->lu)
+                        ->action(fn (ContactMessage $record) => $record->update(['lu' => true])),
+                    DeleteAction::make(),
+                ])
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->tooltip('Actions'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

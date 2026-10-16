@@ -36,4 +36,18 @@ class AdminInfosTest extends TestCase
             is_array($attendu) ? $test->assertTableActionDataSet($attendu) : $test->assertSee($attendu);
         }
     }
+
+    public function test_le_menu_des_actions_contient_infos_modifier_et_supprimer(): void
+    {
+        $this->actingAs(Models\User::create(['name' => 'Test', 'email' => 't@example.com', 'password' => 'secret123']));
+        $realisation = Models\Realisation::create(['titre' => 'A supprimer', 'slug' => 'a-supprimer', 'description' => 'Desc']);
+
+        Livewire::test(Resources\RealisationResource\Pages\ListRealisations::class)
+            ->assertTableActionVisible('view', $realisation)
+            ->assertTableActionVisible('edit', $realisation)
+            ->assertTableActionVisible('delete', $realisation)
+            ->callTableAction('delete', $realisation);
+
+        $this->assertModelMissing($realisation);
+    }
 }

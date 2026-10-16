@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\ActionGroup;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Models\Service;
 use Filament\Forms\Components\TextInput;
@@ -62,12 +63,16 @@ class ServiceResource extends Resource
             ->defaultSort('ordre')
             ->filters([])
             ->actions([
-                \Filament\Tables\Actions\ViewAction::make()
-                    ->label('Infos')
-                    ->icon('heroicon-m-eye')
-                    ->color('success'),
-                \Filament\Tables\Actions\EditAction::make(),
-                \Filament\Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    \Filament\Tables\Actions\ViewAction::make()
+                        ->label('Infos')
+                        ->icon('heroicon-m-eye')
+                        ->color('success'),
+                    \Filament\Tables\Actions\EditAction::make(),
+                    \Filament\Tables\Actions\DeleteAction::make(),
+                ])
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->tooltip('Actions'),
             ])
             ->bulkActions([
                 \Filament\Tables\Actions\BulkActionGroup::make([

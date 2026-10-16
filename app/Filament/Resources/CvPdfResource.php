@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\ActionGroup;
 use App\Filament\Resources\CvPdfResource\Pages;
 use App\Models\CvPdf;
 use Filament\Forms\Components\FileUpload;
@@ -63,12 +64,16 @@ class CvPdfResource extends Resource
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([
-                ViewAction::make()
-                    ->label('Infos')
-                    ->icon('heroicon-m-eye')
-                    ->color('success'),
-                EditAction::make(),
-                DeleteAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Infos')
+                        ->icon('heroicon-m-eye')
+                        ->color('success'),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->tooltip('Actions'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

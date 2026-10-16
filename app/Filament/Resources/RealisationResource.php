@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\ActionGroup;
 use App\Filament\Resources\RealisationResource\Pages;
 use App\Models\Realisation;
 use Filament\Forms\Components\DatePicker;
@@ -156,13 +157,17 @@ class RealisationResource extends Resource
             ])
             ->defaultSort('ordre')
             ->actions([
-                ViewAction::make()
-                    ->label('Infos')
-                    ->icon('heroicon-m-eye')
-                    ->color('success')
-                    ->modalHeading(fn ($record) => $record->titre),
-                EditAction::make(),
-                DeleteAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Infos')
+                        ->icon('heroicon-m-eye')
+                        ->color('success')
+                        ->modalHeading(fn ($record) => $record->titre),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->tooltip('Actions'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

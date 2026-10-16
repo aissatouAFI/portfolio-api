@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\ActionGroup;
 use App\Filament\Resources\CvFormationResource\Pages;
 use App\Models\CvFormation;
 use Filament\Forms\Components\DatePicker;
@@ -56,12 +57,16 @@ class CvFormationResource extends Resource
             ])
             ->defaultSort('ordre')
             ->actions([
-                ViewAction::make()
-                    ->label('Infos')
-                    ->icon('heroicon-m-eye')
-                    ->color('success'),
-                EditAction::make(),
-                DeleteAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Infos')
+                        ->icon('heroicon-m-eye')
+                        ->color('success'),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->tooltip('Actions'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

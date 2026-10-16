@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use Filament\Tables\Actions\ActionGroup;
 use App\Models\ContactMessage;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Tables\Actions\Action;
@@ -31,22 +32,26 @@ class DerniersMessages extends BaseWidget
                 TextColumn::make('created_at')->label('Reçu le')->dateTime('d/m/Y à H:i'),
             ])
             ->actions([
-                ViewAction::make()
-                    ->label('Infos')
-                    ->icon('heroicon-m-eye')
-                    ->color('success')
-                    ->modalHeading(fn (ContactMessage $record) => $record->sujet ?: 'Message de ' . $record->nom)
-                    ->infolist([
-                        TextEntry::make('nom')->label('Nom'),
-                        TextEntry::make('email')->label('Email')->copyable(),
-                        TextEntry::make('created_at')->label('Reçu le')->dateTime('d/m/Y à H:i'),
-                        TextEntry::make('message')->label('Message'),
-                    ]),
-                Action::make('marquerLu')
-                    ->label('Marquer comme lu')
-                    ->icon('heroicon-m-check')
-                    ->visible(fn (ContactMessage $record) => ! $record->lu)
-                    ->action(fn (ContactMessage $record) => $record->update(['lu' => true])),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->label('Infos')
+                        ->icon('heroicon-m-eye')
+                        ->color('success')
+                        ->modalHeading(fn (ContactMessage $record) => $record->sujet ?: 'Message de ' . $record->nom)
+                        ->infolist([
+                            TextEntry::make('nom')->label('Nom'),
+                            TextEntry::make('email')->label('Email')->copyable(),
+                            TextEntry::make('created_at')->label('Reçu le')->dateTime('d/m/Y à H:i'),
+                            TextEntry::make('message')->label('Message'),
+                        ]),
+                    Action::make('marquerLu')
+                        ->label('Marquer comme lu')
+                        ->icon('heroicon-m-check')
+                        ->visible(fn (ContactMessage $record) => ! $record->lu)
+                        ->action(fn (ContactMessage $record) => $record->update(['lu' => true])),
+                ])
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->tooltip('Actions'),
             ])
             ->emptyStateHeading('Aucun message pour l\'instant')
             ->emptyStateDescription('Les messages envoyés depuis ton formulaire de contact apparaîtront ici.');
