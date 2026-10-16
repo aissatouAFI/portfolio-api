@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 | L'espace admin est désormais géré par Laravel Filament, directement
 | sur /admin (voir app/Providers/Filament/AdminPanelProvider.php).
-| Les anciennes routes admin (JWT) ne sont plus nécessaires : Filament
+| L'admin n'a pas besoin de routes d'API : Filament
 | travaille directement sur les modèles Eloquent, sans passer par l'API.
 |
 */

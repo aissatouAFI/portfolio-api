@@ -42,24 +42,4 @@ class ContactController extends Controller
             'message' => 'Ton message a bien été envoyé, merci !',
         ], 201);
     }
-
-    /** GET /api/admin/contact-messages (admin) */
-    public function index()
-    {
-        return response()->json(ContactMessage::latest()->get());
-    }
-
-    /** PATCH /api/admin/contact-messages/{id}/lu (admin) - marquer comme lu */
-    public function marquerLu(ContactMessage $contactMessage)
-    {
-        $contactMessage->update(['lu' => true]);
-        return response()->json($contactMessage);
-    }
-
-    /** DELETE /api/admin/contact-messages/{id} (admin) */
-    public function destroy(ContactMessage $contactMessage)
-    {
-        $contactMessage->delete();
-        return response()->json(['message' => 'Message supprimé']);
-    }
 }
