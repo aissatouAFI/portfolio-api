@@ -44,6 +44,24 @@ class MotDePasseAdminTest extends TestCase
         $this->assertAuthenticatedAs($admin->fresh());
     }
 
+    public function test_l_email_de_reinitialisation_est_en_francais(): void
+    {
+        app()->setLocale('fr');
+        $admin = User::create(['name' => 'Aissatou', 'email' => 'aissatou@example.com', 'password' => 'mot-de-passe']);
+
+        $notification = new EmailDeReinitialisation('jeton');
+        $notification->url = 'https://exemple.test/admin/password-reset/reset?token=jeton';
+        $email = $notification->toMail($admin);
+        $html = (string) $email->render();
+
+        $this->assertSame('Réinitialisation de votre mot de passe', $email->subject);
+        $this->assertSame('Choisir un nouveau mot de passe', $email->actionText);
+        foreach (['Bonjour,', 'Ce lien est valable 60 minutes.', 'Cordialement,', 'copiez et collez', 'Tous droits réservés.'] as $texte) {
+            $this->assertStringContainsString(e($texte), $html);
+        }
+        $this->assertStringNotContainsString('Reset Password', $html);
+    }
+
     public function test_mot_de_passe_oublie_envoie_un_email_et_permet_d_en_choisir_un_nouveau(): void
     {
         Filament::setCurrentPanel(Filament::getPanel('admin'));
